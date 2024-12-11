@@ -40,4 +40,4 @@ services:
   chromadb:
     image: chromadb/chroma:0.5.16
     ports:
-      - "8000:8000"
+      - "8001:8000"

@@ -22,13 +22,13 @@ ENV NEXT_PUBLIC_LEARNHOUSE_DOMAIN=localhost
 WORKDIR /app/web
 COPY ./apps/web/package.json ./apps/web/pnpm-lock.yaml* ./
 COPY ./apps/web /app/web
-RUN rm -f .env* 
+RUN rm -f .env*
 RUN if [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm i --frozen-lockfile && pnpm run build; \
     else echo "Lockfile not found." && exit 1; \
     fi
 
 # Final image
-FROM base as runner 
+FROM base as runner
 RUN addgroup --system --gid 1001 system \
     && adduser --system --uid 1001 app \
     && mkdir .next \
@@ -50,6 +50,6 @@ COPY ./apps/api ./
 # Run the backend
 WORKDIR /app
 COPY ./extra/nginx.conf /etc/nginx/conf.d/default.conf
-ENV PORT=8000 LEARNHOUSE_PORT=9000 HOSTNAME=0.0.0.0
+ENV PORT=8001 LEARNHOUSE_PORT=9000 HOSTNAME=0.0.0.0
 COPY ./extra/start.sh /app/start.sh
 CMD ["sh", "start.sh"]
